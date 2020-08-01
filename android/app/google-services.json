@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "371306904412",
+    "firebase_url": "https://covid19india-951c0.firebaseio.com",
+    "project_id": "covid19india-951c0",
+    "storage_bucket": "covid19india-951c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371306904412:android:8ad65e6311545f140f1f99",
+        "android_client_info": {
+          "package_name": "com.prakash.covid19india"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371306904412-2gfaq8iastu8oga6knf1l4d82qu7ulfe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNtx9VlIuOifgEBJYmurrrcEvAd1D-P28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371306904412-2gfaq8iastu8oga6knf1l4d82qu7ulfe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
