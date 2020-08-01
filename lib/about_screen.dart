@@ -1,7 +1,7 @@
 import 'package:covid19india/constants_and_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//about page
+//about page check
 class About extends StatelessWidget {
   final Color textColor = Colors.grey[300];
   @override
