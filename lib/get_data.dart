@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 class Data extends ChangeNotifier {
   String myState, myStateAcronym, myDistrict, savedState, savedDistrict;
   var decodeddata;
-  final numberFormatter = NumberFormat('##,##,###', "en_in");
+  final numberFormatter = NumberFormat('##,##,##,###', "en_in");
 
   Future getData() async {
     http.Response response =
