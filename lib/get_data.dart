@@ -2,10 +2,12 @@ import 'package:covid19india/location_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class Data extends ChangeNotifier {
   String myState, myStateAcronym, myDistrict, savedState, savedDistrict;
   var decodeddata;
+  final numberFormatter = NumberFormat('##,##,###', "en_in");
 
   Future getData() async {
     http.Response response =
@@ -114,7 +116,7 @@ class Data extends ChangeNotifier {
     int indiaConfirm;
     try {
       indiaConfirm = decodeddata['TT']['total']['confirmed'];
-      return indiaConfirm.toString();
+      return numberFormatter.format(indiaConfirm);
     } catch (e) {
       return '';
     }
@@ -125,7 +127,7 @@ class Data extends ChangeNotifier {
     try {
       indiaDeltaConfirm = decodeddata['TT']['delta']['confirmed'];
       if(indiaDeltaConfirm != null)
-      return indiaDeltaConfirm.toString();
+      return numberFormatter.format(indiaDeltaConfirm);
       else return '';
     } catch (e) {
       return '';
@@ -136,7 +138,7 @@ class Data extends ChangeNotifier {
     int indiaRecovered;
     try {
       indiaRecovered = decodeddata['TT']['total']['recovered'];
-      return indiaRecovered.toString();
+      return numberFormatter.format(indiaRecovered);
     } catch (e) {
       return '';
     }
@@ -147,7 +149,7 @@ class Data extends ChangeNotifier {
     try {
       indiaDeltaReovered = decodeddata['TT']['delta']['recovered'];
       if(indiaDeltaReovered != null)
-      return indiaDeltaReovered.toString();
+      return numberFormatter.format(indiaDeltaReovered);
       else return '';
     } catch (e) {
       return '';
@@ -158,7 +160,7 @@ class Data extends ChangeNotifier {
     int indiaDeceased;
     try {
       indiaDeceased = decodeddata['TT']['total']['deceased'];
-      return indiaDeceased.toString();
+      return numberFormatter.format(indiaDeceased);
     } catch (e) {
       return '';
     }
@@ -169,7 +171,7 @@ class Data extends ChangeNotifier {
     try {
       indiaDeltaDeceased = decodeddata['TT']['delta']['deceased'];
       if(indiaDeltaDeceased != null)
-      return indiaDeltaDeceased.toString();
+      return numberFormatter.format(indiaDeltaDeceased);
       else return '';
     } catch (e) {
       return '';
@@ -193,7 +195,7 @@ class Data extends ChangeNotifier {
     try {
       indiaDeltaTested = decodeddata['TT']['delta']['tested'];
       if (indiaDeltaTested != null)
-        return indiaDeltaTested.toString();
+        return numberFormatter.format(indiaDeltaTested);
       else
         return '';
     } catch (e) {
@@ -207,7 +209,7 @@ class Data extends ChangeNotifier {
       indiaActive = decodeddata['TT']['total']['confirmed'] -
           (decodeddata['TT']['total']['deceased'] +
               decodeddata['TT']['total']['recovered']);
-      return indiaActive.toString();
+      return numberFormatter.format(indiaActive);
     } catch (e) {
       return '';
     }
@@ -217,7 +219,7 @@ class Data extends ChangeNotifier {
     int stateConfirm;
     try {
       stateConfirm = decodeddata[myStateAcronym]['total']['confirmed'];
-      return stateConfirm.toString();
+      return numberFormatter.format(stateConfirm);
     } catch (e) {
       print(e);
       return '';
@@ -229,7 +231,7 @@ class Data extends ChangeNotifier {
     try {
       stateDeltaConfirm = decodeddata[myStateAcronym]['delta']['confirmed'];
       if(stateDeltaConfirm != null)
-      return stateDeltaConfirm.toString();
+      return numberFormatter.format(stateDeltaConfirm);
       else return '';
     } catch (e) {
       return '';
@@ -240,7 +242,7 @@ class Data extends ChangeNotifier {
     int stateRecovered;
     try {
       stateRecovered = decodeddata[myStateAcronym]['total']['recovered'];
-      return stateRecovered.toString();
+      return numberFormatter.format(stateRecovered);
     } catch (e) {
       return '';
     }
@@ -251,7 +253,7 @@ class Data extends ChangeNotifier {
     try {
       stateDeltaReovered = decodeddata[myStateAcronym]['delta']['recovered'];
       if(stateDeltaReovered != null)
-      return stateDeltaReovered.toString();
+      return numberFormatter.format(stateDeltaReovered);
       else return '';
     } catch (e) {
       return '';
@@ -262,7 +264,7 @@ class Data extends ChangeNotifier {
     int stateDeceased;
     try {
       stateDeceased = decodeddata[myStateAcronym]['total']['deceased'];
-      return stateDeceased.toString();
+      return numberFormatter.format(stateDeceased);
     } catch (e) {
       return '';
     }
@@ -273,7 +275,7 @@ class Data extends ChangeNotifier {
     try {
       stateDeltaDeceased = decodeddata[myStateAcronym]['delta']['deceased'];
       if(stateDeltaDeceased != null)
-      return stateDeltaDeceased.toString();
+      return numberFormatter.format(stateDeltaDeceased);
       else return '';
     } catch (e) {
       return '';
@@ -284,7 +286,7 @@ class Data extends ChangeNotifier {
     int stateTested;
     try {
       stateTested = decodeddata[myStateAcronym]['total']['tested'];
-      return stateTested.toString();
+      return numberFormatter.format(stateTested);
     } catch (e) {
       return '';
     }
@@ -295,7 +297,7 @@ class Data extends ChangeNotifier {
     try {
       stateDeltaTested = decodeddata[myStateAcronym]['delta']['tested'];
       if(stateDeltaTested != null)
-      return stateDeltaTested.toString();
+      return numberFormatter.format(stateDeltaTested);
       else return '';
     } catch (e) {
       return '';
@@ -308,7 +310,7 @@ class Data extends ChangeNotifier {
       stateActive = decodeddata[myStateAcronym]['total']['confirmed'] -
           (decodeddata[myStateAcronym]['total']['deceased'] +
               decodeddata[myStateAcronym]['total']['recovered']);
-      return stateActive.toString();
+      return numberFormatter.format(stateActive);
     } catch (e) {
       return '';
     }
@@ -319,7 +321,7 @@ class Data extends ChangeNotifier {
     try {
       districtConfirm = decodeddata[myStateAcronym]['districts'][myDistrict]
           ['total']['confirmed'];
-      return districtConfirm.toString();
+      return numberFormatter.format(districtConfirm);
     } catch (e) {
       print(e);
       return '';
@@ -331,7 +333,7 @@ class Data extends ChangeNotifier {
     try {
       districtDeltaConfirm = decodeddata[myStateAcronym]['districts']
           [myDistrict]['delta']['confirmed'];
-      return districtDeltaConfirm.toString();
+      return numberFormatter.format(districtDeltaConfirm);
     } catch (e) {
       return '';
     }
@@ -342,7 +344,7 @@ class Data extends ChangeNotifier {
     try {
       districtRecovered = decodeddata[myStateAcronym]['districts'][myDistrict]
           ['total']['recovered'];
-      return districtRecovered.toString();
+      return numberFormatter.format(districtRecovered);
     } catch (e) {
       return '';
     }
@@ -354,7 +356,7 @@ class Data extends ChangeNotifier {
       districtDeltaReovered = decodeddata[myStateAcronym]['districts']
           [myDistrict]['delta']['recovered'];
           if(districtDeltaReovered != null)
-      return districtDeltaReovered.toString();
+      return numberFormatter.format(districtDeltaReovered);
       return '';
     } catch (e) {
       return '';
@@ -367,7 +369,7 @@ class Data extends ChangeNotifier {
       districtDeceased = decodeddata[myStateAcronym]['districts'][myDistrict]
           ['total']['deceased'];
       if (districtDeceased != null)
-        return districtDeceased.toString();
+        return numberFormatter.format(districtDeceased);
       else
         return '';
     } catch (e) {
@@ -381,7 +383,7 @@ class Data extends ChangeNotifier {
       districtDeltaDeceased = decodeddata[myStateAcronym]['districts']
           [myDistrict]['delta']['deceased'];
       if (districtDeltaDeceased != null)
-        return districtDeltaDeceased.toString();
+        return numberFormatter.format(districtDeltaDeceased);
       else
         return '';
     } catch (e) {
@@ -395,7 +397,7 @@ class Data extends ChangeNotifier {
       districtTested = decodeddata[myStateAcronym]['districts'][myDistrict]
           ['total']['tested'];
       if (districtTested != null)
-        return districtTested.toString();
+        return numberFormatter.format(districtTested);
       else
         return '';
     } catch (e) {
@@ -409,7 +411,7 @@ class Data extends ChangeNotifier {
       districtdDeltaTested = decodeddata[myStateAcronym]['districts']
           [myDistrict]['delta']['tested'];
       if (districtdDeltaTested != null)
-        return districtdDeltaTested.toString();
+        return numberFormatter.format(districtdDeltaTested);
       else
         return '';
     } catch (e) {
@@ -426,7 +428,7 @@ class Data extends ChangeNotifier {
                   ['deceased'] +
               decodeddata[myStateAcronym]['districts'][myDistrict]['total']
                   ['recovered']);
-      return districtActive.toString();
+      return numberFormatter.format(districtActive);
     } catch (e) {
       return '';
     }

@@ -10,7 +10,7 @@ class About extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('About'),
+        title: Text('About', style: TextStyle(fontWeight: FontWeight.w900, color: Colors.grey[300]),),
       ),
       backgroundColor: primaryColor,
       body: Padding(

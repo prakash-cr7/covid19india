@@ -9,7 +9,7 @@ import 'district_search_screen.dart';
 import 'constants_and_widgets.dart';
 import 'get_data.dart';
 import 'package:provider/provider.dart';
-import 'about_screen.dart';
+import 'drawer.dart';
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
           actions: <Widget>[
             IconButton(
               icon: Icon(
-                Icons.edit_location,
+                Icons.my_location,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -80,90 +80,7 @@ class _MainScreenState extends State<MainScreen> {
           ],
           centerTitle: true,
         ),
-        drawer: Drawer(
-          child: Container(
-            color: primaryColor,
-            child: ListView(
-              children: <Widget>[
-                GestureDetector(
-                  child: Card(
-                    color: primaryColor,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-                      child: Text(
-                        'Change Your Location',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ),
-                  onTap: (){
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  }
-                ),
-                Card(
-                  color: primaryColor,
-                  child: SwitchListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                    title: Text(
-                      'Dark mode',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900),
-                      textAlign: TextAlign.left,
-                    ),
-                    value: false,
-                    onChanged: null,
-                  ),
-                ),
-                Card(
-                  color: primaryColor,
-                  child: SwitchListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                    title: Text(
-                      'Receive Notification',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900),
-                      textAlign: TextAlign.left,
-                    ),
-                    value: true,
-                    onChanged: null,
-                  ),
-                ),
-                GestureDetector(
-                  child: Card(
-                    color: primaryColor,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-                      child: Text(
-                        'About',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> About()));
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+        drawer: DrawerScreen(),
         body: PageView(
           children: <Widget>[CountryPage(), StatePage(), DistrictPage()],
           controller: pageController,
@@ -210,3 +127,4 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+

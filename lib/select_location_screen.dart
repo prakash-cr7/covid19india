@@ -53,12 +53,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
     getData();
   }
 
-  void setData () {
-     print('data saved');
-  }
-
   void getData()  {
-    print('function called');
     try {
       var data =  _sharedPreferences.getStringList('location');
       print(data);
