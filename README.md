@@ -1,6 +1,6 @@
 # covid19india
 
-This app provides with latest data on coronavirus cases for every state and district in india.
+This app provides latest data on coronavirus cases for every state and district in india.
 
 
 The App is powered by firebase cloud masaging which lets users recieve push notification on latest updates.
