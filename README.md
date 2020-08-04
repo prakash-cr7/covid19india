@@ -1,21 +1,15 @@
 # covid19india
 
-A new Flutter application.
+This app provides with latest data on coronavirus cases for every state and district in india.
 
-<<<<<<< HEAD
-## Getting Started
 
-This project is a starting point for a Flutter application.
+The App is powered by firebase cloud masaging which lets users recieve push notification on latest updates.
 
-A few resources to get you started if this is your first Flutter project:
+it uses shared_preferences for storing user's loction on device.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+For state management Provider package has been used.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
-This app provides with latest data on coronavirus cases in india.
+All realtime data is recieved through api provided by covid19india.org. covid19india.org is an opensource website which provides latest data on coronavirus cases in india.
 
->>>>>>> ecb4c60ffbc6b1b805a8e231fe48ac6285131fc8
+
+suggestions and contributions are most welcome.
