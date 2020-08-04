@@ -9,7 +9,7 @@ class DrawerScreen extends StatefulWidget {
 
 class _DrawerScreenState extends State<DrawerScreen> {
 
-  bool notificatonState = false;
+  bool notificatonState = true;
 
   @override
   Widget build(BuildContext context) {
