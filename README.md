@@ -13,3 +13,6 @@ All realtime data is recieved through api provided by 'covid19india.org'. covid1
 
 
 suggestions and contributions are most welcome.
+
+![Screenshot_2020-08-03-22-36-38-724_com prakash covid19india](https://user-images.githubusercontent.com/64666687/89288587-863dc680-d673-11ea-8ead-59c8e4a698ae.jpg)
+
