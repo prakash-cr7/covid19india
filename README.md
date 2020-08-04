@@ -9,7 +9,7 @@ it uses shared_preferences for storing user's loction on device.
 
 For state management Provider package has been used.
 
-All realtime data is recieved through api provided by covid19india.org. covid19india.org is an opensource website which provides latest data on coronavirus cases in india.
+All realtime data is recieved through api provided by 'covid19india.org'. covid19india.org is an opensource website which provides latest data on coronavirus cases in india.
 
 
 suggestions and contributions are most welcome.
