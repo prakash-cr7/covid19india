@@ -166,14 +166,15 @@ class Chart extends StatelessWidget {
               )
             ]),
         child: SfCartesianChart(
+          enableAxisAnimation: false,
           title: ChartTitle(text: chartTitle),
           primaryXAxis: CategoryAxis(isVisible: true),
           primaryYAxis: CategoryAxis(isVisible: true),
-          tooltipBehavior: TooltipBehavior(
-            enable: true,
-            canShowMarker: true,
-            color: primaryColor,
-          ),
+//          tooltipBehavior: TooltipBehavior(
+//            enable: true,
+//            canShowMarker: true,
+//            color: primaryColor,
+//          ),
           series: <ColumnSeries<GraphData, String>>[
             ColumnSeries<GraphData, String>(
               dataSource: graphData,
