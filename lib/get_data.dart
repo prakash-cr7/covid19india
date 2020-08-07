@@ -4,9 +4,15 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
+class GraphData {
+  GraphData({this.dateTime, this.value});
+  String dateTime;
+  int value;
+}
+
 class Data extends ChangeNotifier {
   String myState, myStateAcronym, myDistrict, savedState, savedDistrict;
-  var decodeddata;
+  var decodeddata,datedDecodedData;
   final numberFormatter = NumberFormat('##,##,##,###', "en_in");
 
   Future getData() async {
@@ -18,6 +24,43 @@ class Data extends ChangeNotifier {
     } else
       print(response.statusCode);
     notifyListeners();
+  }
+
+  Future getDatedData() async {
+    http.Response response =
+    await http.get('https://api.covid19india.org/v4/timeseries.json');
+    if (response.statusCode == 200) {
+      String data = response.body;
+      datedDecodedData = jsonDecode(data);
+      print(datedDecodedData['TT']['dates']['2020-08-06']['delta']['confirmed']);
+    } else
+      print(response.statusCode);
+    notifyListeners();
+  }
+
+  List<String> getDates() {
+    List<String> dateList = [];
+    var newFormat = DateFormat("yyyy-MM-dd");
+    for(int i=30; i>=1; i--){
+      var diff = DateTime.now().subtract(Duration(days: i, hours: 1));
+      dateList.add(newFormat.format(diff));
+    }
+    return dateList;
+  }
+
+  List<GraphData> datedData ({String stateAcronym, String type})  {
+    List<GraphData> graphDataList = [];
+    List<String> dates = getDates();
+    try {
+      for (String date in dates) {
+        GraphData graphData = GraphData(
+            dateTime: date,
+            value: datedDecodedData[stateAcronym]['dates'][date]['delta'][type]
+        );
+        graphDataList.add(graphData);
+      }
+    }catch(e){print('$e caught error in datedData');}
+    return graphDataList;
   }
 
   void saveLocation(String state, String district) {
@@ -56,62 +99,84 @@ class Data extends ChangeNotifier {
     return myStateAcronym;
   }
 
-
-
   String getRecoveryRate(String acronym) {
     double recoveryRate;
-    try{
-    recoveryRate = decodeddata[acronym]['total']['recovered']/decodeddata[acronym]['total']['confirmed']*100;
-    return recoveryRate.toStringAsFixed(2);
-    }catch(e){return '';}
+    try {
+      recoveryRate = decodeddata[acronym]['total']['recovered'] /
+          decodeddata[acronym]['total']['confirmed'] *
+          100;
+      return recoveryRate.toStringAsFixed(2);
+    } catch (e) {
+      return '';
+    }
   }
 
   String getMortalityrate(String acronym) {
     double mortalityRate;
-    try{
-    mortalityRate = decodeddata[acronym]['total']['deceased']/decodeddata[acronym]['total']['confirmed']*100;
-    return mortalityRate.toStringAsFixed(2);}
-    catch(e){return '';}
-
+    try {
+      mortalityRate = decodeddata[acronym]['total']['deceased'] /
+          decodeddata[acronym]['total']['confirmed'] *
+          100;
+      return mortalityRate.toStringAsFixed(2);
+    } catch (e) {
+      return '';
+    }
   }
 
   String getTestedRatio(String acronym) {
-    try{
-    double ratio;
-    ratio = decodeddata[acronym]['total']['confirmed']/decodeddata[acronym]['total']['tested']*100;
-    return ratio.toStringAsFixed(2);}
-    catch(e){return '';}
+    try {
+      double ratio;
+      ratio = decodeddata[acronym]['total']['confirmed'] /
+          decodeddata[acronym]['total']['tested'] *
+          100;
+      return ratio.toStringAsFixed(2);
+    } catch (e) {
+      return '';
+    }
   }
-  
-  get getDistrictRecoveryRate{
+
+  get getDistrictRecoveryRate {
     double recoveryRate;
-    try{
+    try {
       recoveryRate = decodeddata[myStateAcronym]['districts'][myDistrict]
-          ['total']['recovered']/decodeddata[myStateAcronym]['districts']
-          [myDistrict]['total']['confirmed']*100;
-          return (recoveryRate.toStringAsFixed(2) + '%');
-    }catch(e){return '';}
+              ['total']['recovered'] /
+          decodeddata[myStateAcronym]['districts'][myDistrict]['total']
+              ['confirmed'] *
+          100;
+      return (recoveryRate.toStringAsFixed(2) + '%');
+    } catch (e) {
+      return '';
+    }
   }
 
   get getDistrictMortalityRate {
     double mortalityRate;
-    try{
+    try {
       mortalityRate = decodeddata[myStateAcronym]['districts'][myDistrict]
-          ['total']['deceased']/decodeddata[myStateAcronym]['districts']
-          [myDistrict]['total']['confirmed']*100;
-          return (mortalityRate.toStringAsFixed(2) + '%');
-    }catch(e){return '';}
+              ['total']['deceased'] /
+          decodeddata[myStateAcronym]['districts'][myDistrict]['total']
+              ['confirmed'] *
+          100;
+      return (mortalityRate.toStringAsFixed(2) + '%');
+    } catch (e) {
+      return '';
+    }
   }
 
-  get getDistrictTestRatio{
+  get getDistrictTestRatio {
     double ratio;
-    try{
-      ratio = decodeddata[myStateAcronym]['districts']
-          [myDistrict]['total']['confirmed']/decodeddata[myStateAcronym]['districts'][myDistrict]
-          ['total']['tested']*100;
-          return (ratio.toStringAsFixed(2) + '%');
-    }catch(e) {return '';}
+    try {
+      ratio = decodeddata[myStateAcronym]['districts'][myDistrict]['total']
+              ['confirmed'] /
+          decodeddata[myStateAcronym]['districts'][myDistrict]['total']
+              ['tested'] *
+          100;
+      return (ratio.toStringAsFixed(2) + '%');
+    } catch (e) {
+      return '';
+    }
   }
+
   get getIndiaConfirm {
     int indiaConfirm;
     try {
@@ -126,9 +191,10 @@ class Data extends ChangeNotifier {
     int indiaDeltaConfirm;
     try {
       indiaDeltaConfirm = decodeddata['TT']['delta']['confirmed'];
-      if(indiaDeltaConfirm != null)
-      return numberFormatter.format(indiaDeltaConfirm);
-      else return '';
+      if (indiaDeltaConfirm != null)
+        return numberFormatter.format(indiaDeltaConfirm);
+      else
+        return '';
     } catch (e) {
       return '';
     }
@@ -148,9 +214,10 @@ class Data extends ChangeNotifier {
     int indiaDeltaReovered;
     try {
       indiaDeltaReovered = decodeddata['TT']['delta']['recovered'];
-      if(indiaDeltaReovered != null)
-      return numberFormatter.format(indiaDeltaReovered);
-      else return '';
+      if (indiaDeltaReovered != null)
+        return numberFormatter.format(indiaDeltaReovered);
+      else
+        return '';
     } catch (e) {
       return '';
     }
@@ -170,9 +237,10 @@ class Data extends ChangeNotifier {
     int indiaDeltaDeceased;
     try {
       indiaDeltaDeceased = decodeddata['TT']['delta']['deceased'];
-      if(indiaDeltaDeceased != null)
-      return numberFormatter.format(indiaDeltaDeceased);
-      else return '';
+      if (indiaDeltaDeceased != null)
+        return numberFormatter.format(indiaDeltaDeceased);
+      else
+        return '';
     } catch (e) {
       return '';
     }
@@ -182,8 +250,8 @@ class Data extends ChangeNotifier {
     int indiaTested;
     try {
       indiaTested = decodeddata['TT']['total']['tested'];
-      int temp = (indiaTested /10000000).toInt();
-      int temp1 = ((indiaTested%10000000)/100000).toInt();
+      int temp = (indiaTested / 10000000).toInt();
+      int temp1 = ((indiaTested % 10000000) / 100000).toInt();
       return temp.toString() + ' crore ' + temp1.toString() + ' lakh';
     } catch (e) {
       return '';
@@ -230,9 +298,10 @@ class Data extends ChangeNotifier {
     int stateDeltaConfirm;
     try {
       stateDeltaConfirm = decodeddata[myStateAcronym]['delta']['confirmed'];
-      if(stateDeltaConfirm != null)
-      return numberFormatter.format(stateDeltaConfirm);
-      else return '';
+      if (stateDeltaConfirm != null)
+        return numberFormatter.format(stateDeltaConfirm);
+      else
+        return '';
     } catch (e) {
       return '';
     }
@@ -252,9 +321,10 @@ class Data extends ChangeNotifier {
     int stateDeltaReovered;
     try {
       stateDeltaReovered = decodeddata[myStateAcronym]['delta']['recovered'];
-      if(stateDeltaReovered != null)
-      return numberFormatter.format(stateDeltaReovered);
-      else return '';
+      if (stateDeltaReovered != null)
+        return numberFormatter.format(stateDeltaReovered);
+      else
+        return '';
     } catch (e) {
       return '';
     }
@@ -274,9 +344,10 @@ class Data extends ChangeNotifier {
     int stateDeltaDeceased;
     try {
       stateDeltaDeceased = decodeddata[myStateAcronym]['delta']['deceased'];
-      if(stateDeltaDeceased != null)
-      return numberFormatter.format(stateDeltaDeceased);
-      else return '';
+      if (stateDeltaDeceased != null)
+        return numberFormatter.format(stateDeltaDeceased);
+      else
+        return '';
     } catch (e) {
       return '';
     }
@@ -296,9 +367,10 @@ class Data extends ChangeNotifier {
     int stateDeltaTested;
     try {
       stateDeltaTested = decodeddata[myStateAcronym]['delta']['tested'];
-      if(stateDeltaTested != null)
-      return numberFormatter.format(stateDeltaTested);
-      else return '';
+      if (stateDeltaTested != null)
+        return numberFormatter.format(stateDeltaTested);
+      else
+        return '';
     } catch (e) {
       return '';
     }
@@ -317,7 +389,7 @@ class Data extends ChangeNotifier {
   }
 
   get getDistrictConfirm {
-    int districtConfirm ;
+    int districtConfirm;
     try {
       districtConfirm = decodeddata[myStateAcronym]['districts'][myDistrict]
           ['total']['confirmed'];
@@ -355,8 +427,8 @@ class Data extends ChangeNotifier {
     try {
       districtDeltaReovered = decodeddata[myStateAcronym]['districts']
           [myDistrict]['delta']['recovered'];
-          if(districtDeltaReovered != null)
-      return numberFormatter.format(districtDeltaReovered);
+      if (districtDeltaReovered != null)
+        return numberFormatter.format(districtDeltaReovered);
       return '';
     } catch (e) {
       return '';

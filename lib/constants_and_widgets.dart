@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'get_data.dart';
 
 const Color primaryColor = Color(0xff6c757d);
 const Color deseasedColor = Color(0xff6d7c7e);
@@ -136,3 +138,54 @@ class DataTile extends StatelessWidget {
     );
   }
 }
+
+class Chart extends StatelessWidget {
+
+  Chart({this.backgroundColor, this.graphData, this.barColor, this.chartTitle});
+
+  String chartTitle;
+  Color backgroundColor;
+  Color barColor;
+  List<GraphData> graphData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        height: 200,
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                offset: Offset(2.0, 2.0),
+                blurRadius: 5,
+              )
+            ]),
+        child: SfCartesianChart(
+          title: ChartTitle(text: chartTitle),
+          primaryXAxis: CategoryAxis(isVisible: true),
+          primaryYAxis: CategoryAxis(isVisible: true),
+          tooltipBehavior: TooltipBehavior(
+            enable: true,
+            canShowMarker: true,
+            color: primaryColor,
+          ),
+          series: <ColumnSeries<GraphData, String>>[
+            ColumnSeries<GraphData, String>(
+              dataSource: graphData,
+              xValueMapper: (GraphData data, _) => data.dateTime,
+              yValueMapper: (GraphData data, _) => data.value,
+              color: barColor,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+

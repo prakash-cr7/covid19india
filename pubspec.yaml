@@ -27,6 +27,7 @@ dependencies:
   provider: ^4.3.1
   firebase_messaging: ^6.0.16
   shared_preferences: ^0.5.8
+  syncfusion_flutter_charts: ^18.2.48
 
 dev_dependencies:
   flutter_test:

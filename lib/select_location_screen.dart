@@ -44,33 +44,31 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
   }
 
   @override
-  void initState()  {
-    initSharedPreferences();
+  void initState() {
     super.initState();
+    initSharedPreferences();
   }
-  void initSharedPreferences () async {
+
+  void initSharedPreferences() async {
     _sharedPreferences = await SharedPreferences.getInstance();
     getData();
   }
 
-  void getData()  {
-    try {
-      var data =  _sharedPreferences.getStringList('location');
-      print(data);
-      selectedState = data[0];
-      selecteddistrict = data[1];
-      Provider.of<Data>(context, listen: false)
-          .saveLocation(selectedState, selecteddistrict);
-      Provider.of<Data>(context, listen: false)
-          .getLocation(selectedState, selecteddistrict);
-      Provider.of<Data>(context, listen: false).getData();
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => MainScreen()));
-    } catch (e) {
-      print(e);
-    }
-    setState(() {
-    });
+  void getData() {
+    var data = _sharedPreferences.getStringList('location');
+    print(data);
+    selectedState = data[0];
+    selecteddistrict = data[1];
+    Provider.of<Data>(context, listen: false)
+        .saveLocation(selectedState, selecteddistrict);
+    Provider.of<Data>(context, listen: false)
+        .getLocation(selectedState, selecteddistrict);
+    Provider.of<Data>(context, listen: false).getData();
+    Provider.of<Data>(context, listen: false).getDatedData();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainScreen()));
+
+    setState(() {});
   }
 
   @override
@@ -154,12 +152,14 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                   ),
                 ),
                 onPressed: () {
-                  _sharedPreferences.setStringList('location', [selectedState, selecteddistrict]);
+                  _sharedPreferences.setStringList(
+                      'location', [selectedState, selecteddistrict]);
                   Provider.of<Data>(context, listen: false)
                       .saveLocation(selectedState, selecteddistrict);
                   Provider.of<Data>(context, listen: false)
                       .getLocation(selectedState, selecteddistrict);
                   Provider.of<Data>(context, listen: false).getData();
+                  Provider.of<Data>(context, listen: false).getDatedData();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MainScreen()));
                 },

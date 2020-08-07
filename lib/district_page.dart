@@ -121,7 +121,7 @@ class DistrictPage extends StatelessWidget {
        ),
        SizedBox(height: 15,),
        Container(height: 25,
-       child: Text('WEAR MASKS!',textAlign: TextAlign.center,style: TextStyle(fontSize: 24,color: increaseInDeseasedColor),),
+       child: Text('PLEASE WEAR MASKS!',textAlign: TextAlign.center,style: TextStyle(fontSize: 24,color: increaseInDeseasedColor),),
        
        ),
        SizedBox(height: 15,),
