@@ -143,10 +143,10 @@ class Chart extends StatelessWidget {
 
   Chart({this.backgroundColor, this.graphData, this.barColor, this.chartTitle});
 
-  String chartTitle;
-  Color backgroundColor;
-  Color barColor;
-  List<GraphData> graphData;
+  final String chartTitle;
+  final Color backgroundColor;
+  final Color barColor;
+  final List<GraphData> graphData;
 
   @override
   Widget build(BuildContext context) {

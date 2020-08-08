@@ -28,9 +28,9 @@ class _CountryPageState extends State<CountryPage> {
         ),
         DataTile(
           type: 'Confirmed',
-          totalData: Provider.of<Data>(context, listen: true).getIndiaConfirm,
+          totalData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'total', type: 'confirmed'),
           increaseInData:
-              Provider.of<Data>(context, listen: true).getDeltaIndiaConfirm,
+              Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'delta', type: 'confirmed'),
           backgroundColor: backgroundConfirmedCasesColor,
           mainTextColor: confirmedCasescolor,
           sideTextColor: increaseInConfirmedCasescolor,
@@ -46,18 +46,18 @@ class _CountryPageState extends State<CountryPage> {
         ),
         DataTile(
           type: 'Recovered',
-          totalData: Provider.of<Data>(context, listen: true).getIndiaRecovered,
+          totalData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'total', type: 'recovered'),
           increaseInData:
-              Provider.of<Data>(context, listen: true).getDeltaIndiaRecovered,
+              Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'delta', type: 'recovered'),
           backgroundColor: backgroundRecoverevColor,
           mainTextColor: recoveredColor,
           sideTextColor: increaseInRecoveryColor,
         ),
         DataTile(
           type: 'Deceased',
-          totalData: Provider.of<Data>(context, listen: true).getIndiaDeceased,
+          totalData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'total', type: 'deceased'),
           increaseInData:
-              Provider.of<Data>(context, listen: true).getDetaIndiaDeceased,
+              Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'delta', type: 'deceased'),
           backgroundColor: Colors.grey[300],
           mainTextColor: deseasedColor,
           sideTextColor: increaseInDeseasedColor,

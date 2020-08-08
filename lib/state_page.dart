@@ -10,7 +10,6 @@ class StatePage extends StatelessWidget {
       String stateAcronym = Provider.of<Data>(context, listen:  true).getStateAcronym;
 
     return ListView(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(10),
@@ -25,8 +24,8 @@ class StatePage extends StatelessWidget {
         ),
         DataTile(
           type: 'Confirmed',
-          totalData: Provider.of<Data>(context, listen: true).getStateConfirm,
-          increaseInData: Provider.of<Data>(context,listen: true).getDeltaStateConfirm,
+          totalData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'total', type: 'confirmed'),
+          increaseInData: Provider.of<Data>(context,listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'delta', type: 'confirmed'),
           backgroundColor: backgroundConfirmedCasesColor,
           mainTextColor: confirmedCasescolor,
           sideTextColor: increaseInConfirmedCasescolor,
@@ -42,24 +41,24 @@ class StatePage extends StatelessWidget {
           ),
         DataTile(
           type: 'Recovered',
-          totalData: Provider.of<Data>(context, listen: true).getstateRecovered,
-          increaseInData: Provider.of<Data>(context, listen: true).getDeltaStateRecovered,
+          totalData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'total', type: 'recovered'),
+          increaseInData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'delta', type: 'recovered'),
           backgroundColor: backgroundRecoverevColor,
           mainTextColor: recoveredColor,
           sideTextColor: increaseInRecoveryColor,
         ),
         DataTile(
           type: 'Deceased',
-          totalData: Provider.of<Data>(context, listen: true).getStateDeceased,
-          increaseInData: Provider.of<Data>(context, listen: true).getDeltaStatedeceased,
+          totalData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'total', type: 'deceased'),
+          increaseInData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'delta', type: 'deceased'),
           backgroundColor: Colors.grey[300],
           mainTextColor: deseasedColor,
           sideTextColor: increaseInDeseasedColor,
         ),
         DataTile(
           type: 'Tested',
-          totalData: Provider.of<Data>(context, listen: true).getStateTested,
-          increaseInData: Provider.of<Data>(context, listen: true).getDeltaStateTested,
+          totalData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'total', type: 'tested'),
+          increaseInData: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: stateAcronym, totalOrDelta: 'delta', type: 'tested'),
           backgroundColor: backgroundTestedColor,
           mainTextColor: testedColor,
           sideTextColor: increaseInTestedColor,
