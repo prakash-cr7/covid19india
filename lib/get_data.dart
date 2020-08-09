@@ -12,7 +12,7 @@ class GraphData {
 
 class Data extends ChangeNotifier {
   String myState, myStateAcronym, myDistrict, savedState, savedDistrict;
-  var decodeddata,datedDecodedData;
+  var decodeddata, datedDecodedData;
   final numberFormatter = NumberFormat('##,##,##,###', "en_in");
 
   Future getData() async {
@@ -28,11 +28,10 @@ class Data extends ChangeNotifier {
 
   Future getDatedData() async {
     http.Response response =
-    await http.get('https://api.covid19india.org/v4/timeseries.json');
+        await http.get('https://api.covid19india.org/v4/timeseries.json');
     if (response.statusCode == 200) {
       String data = response.body;
       datedDecodedData = jsonDecode(data);
-      print(datedDecodedData['TT']['dates']['2020-08-06']['delta']['confirmed']);
     } else
       print(response.statusCode);
     notifyListeners();
@@ -41,25 +40,27 @@ class Data extends ChangeNotifier {
   List<String> getDates() {
     List<String> dateList = [];
     var newFormat = DateFormat("yyyy-MM-dd");
-    for(int i=30; i>=1; i--){
+    for (int i = 30; i >= 1; i--) {
       var diff = DateTime.now().subtract(Duration(days: i, hours: 1));
       dateList.add(newFormat.format(diff));
     }
     return dateList;
   }
 
-  List<GraphData> datedData ({String stateAcronym, String type})  {
+  List<GraphData> datedData({String stateAcronym, String type}) {
     List<GraphData> graphDataList = [];
     List<String> dates = getDates();
     try {
       for (String date in dates) {
         GraphData graphData = GraphData(
             dateTime: date,
-            value: datedDecodedData[stateAcronym]['dates'][date]['delta'][type]
-        );
+            value: datedDecodedData[stateAcronym]['dates'][date]['delta']
+                [type]);
         graphDataList.add(graphData);
       }
-    }catch(e){print('$e caught error in datedData');}
+    } catch (e) {
+      print('$e caught error in datedData');
+    }
     return graphDataList;
   }
 
@@ -177,7 +178,7 @@ class Data extends ChangeNotifier {
     }
   }
 
-  String getStateData({String stateAcronym, String totalOrDelta, String type }){
+  String getStateData({String stateAcronym, String totalOrDelta, String type}) {
     int temp;
     try {
       temp = decodeddata[stateAcronym][totalOrDelta][type];
@@ -190,11 +191,11 @@ class Data extends ChangeNotifier {
     }
   }
 
-  String getDistrictData({String totalOrDelta, String type}){
+  String getDistrictData({String totalOrDelta, String type}) {
     int temp;
     try {
-      temp = decodeddata[myStateAcronym]['districts'][myDistrict]
-      [totalOrDelta][type];
+      temp = decodeddata[myStateAcronym]['districts'][myDistrict][totalOrDelta]
+          [type];
       if (temp != null)
         return numberFormatter.format(temp);
       else
@@ -216,7 +217,6 @@ class Data extends ChangeNotifier {
     }
   }
 
-
   get getIndiaActive {
     int indiaActive;
     try {
@@ -228,7 +228,6 @@ class Data extends ChangeNotifier {
       return '';
     }
   }
-
 
   get getStateActive {
     int stateActive;

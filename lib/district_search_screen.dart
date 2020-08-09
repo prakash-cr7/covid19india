@@ -79,7 +79,7 @@ class _DistrictSearchPageState extends State<DistrictSearchPage> {
           ),
           FlatButton(
             padding: EdgeInsets.all(0),
-                      child: Container(
+            child: Container(
               height: 60,
               alignment: Alignment.center,
               color: activeCasesColor,
@@ -91,7 +91,7 @@ class _DistrictSearchPageState extends State<DistrictSearchPage> {
                     fontWeight: FontWeight.w900),
               ),
             ),
-            onPressed: (){
+            onPressed: () {
               Provider.of<Data>(context, listen: false)
                   .getLocation(selectedState, selecteddistrict);
               Navigator.pop(context);

@@ -6,9 +6,9 @@ import 'get_data.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 
-
-void main(){
-  SyncfusionLicense.registerLicense('NT8mJyc2IWhia31hfWN9Z2doanxlfGFjYWNzYmlha2lmY3MDHmgjITI4MiA7OCY+MiEhMjliEzQ+Mjo/fTA8Pg==');
+void main() {
+  SyncfusionLicense.registerLicense(
+      'NT8mJyc2IWhia31hfWN9Z2doanxlfGFjYWNzYmlha2lmY3MDHmgjITI4MiA7OCY+MiEhMjliEzQ+Mjo/fTA8Pg==');
   runApp(MyApp());
 }
 
@@ -23,12 +23,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     configre_firebace();
-  }
-
-  void setupNotification() async {
-    _firebaseMessaging.getToken().then((value) {
-      print(value);
-    });
   }
 
   void configre_firebace() {
