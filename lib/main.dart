@@ -1,3 +1,4 @@
+import 'package:covid19india/constants_and_widgets.dart';
 import 'package:covid19india/select_location_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class _MyAppState extends State<MyApp> {
       create: (context) => Data(),
       child: MaterialApp(
         theme: ThemeData(
+          accentColor: primaryColor,
           fontFamily: 'Archia',
         ),
         home: SelectLocationScreen(),
