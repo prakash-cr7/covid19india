@@ -34,6 +34,7 @@ class _CountryPageState extends State<CountryPage> {
           backgroundColor: backgroundConfirmedCasesColor,
           mainTextColor: confirmedCasescolor,
           sideTextColor: increaseInConfirmedCasescolor,
+          icon:  Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'delta', type: 'confirmed') == '' ? null : Icons.arrow_upward,
         ),
         DataTile(
           type: 'Active',
@@ -52,6 +53,7 @@ class _CountryPageState extends State<CountryPage> {
           backgroundColor: backgroundRecoverevColor,
           mainTextColor: recoveredColor,
           sideTextColor: increaseInRecoveryColor,
+          icon: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'delta', type: 'recovered') == '' ? null : Icons.arrow_upward,
         ),
         DataTile(
           type: 'Deceased',
@@ -61,6 +63,7 @@ class _CountryPageState extends State<CountryPage> {
           backgroundColor: Colors.grey[300],
           mainTextColor: deseasedColor,
           sideTextColor: increaseInDeseasedColor,
+          icon: Provider.of<Data>(context, listen: true).getStateData(stateAcronym: 'TT', totalOrDelta: 'delta', type: 'deceased') == '' ? null : Icons.arrow_upward,
         ),
         DataTile(
           type: 'Tested',
@@ -144,7 +147,7 @@ class _CountryPageState extends State<CountryPage> {
         ),
         Chart(
           backgroundColor: backgroundConfirmedCasesColor,
-          chartTitle: 'Confirmed cases',
+          chartTitle: 'Confirmed',
           barColor: increaseInConfirmedCasescolor,
           graphData: Provider.of<Data>(context, listen: true).datedData(stateAcronym: 'TT', type: 'confirmed'),
         ),

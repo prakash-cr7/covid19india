@@ -12,12 +12,13 @@ class GraphData {
 
 class Data extends ChangeNotifier {
   String myState, myStateAcronym, myDistrict, savedState, savedDistrict;
+  bool prog = true;
   var decodeddata, datedDecodedData;
   final numberFormatter = NumberFormat('##,##,##,###', "en_in");
 
   Future getData() async {
-    http.Response response =
-        await http.get('https://api.covid19india.org/v4/data.json');
+    http.Response response;
+    response = await http.get('https://api.covid19india.org/v4/data.json');
     if (response.statusCode == 200) {
       String data = response.body;
       decodeddata = jsonDecode(data);
@@ -29,6 +30,7 @@ class Data extends ChangeNotifier {
   Future getDatedData() async {
     http.Response response =
         await http.get('https://api.covid19india.org/v4/timeseries.json');
+    prog = false;
     if (response.statusCode == 200) {
       String data = response.body;
       datedDecodedData = jsonDecode(data);
@@ -40,8 +42,8 @@ class Data extends ChangeNotifier {
   List<String> getDates() {
     List<String> dateList = [];
     var newFormat = DateFormat("yyyy-MM-dd");
-    for (int i = 30; i >= 1; i--) {
-      var diff = DateTime.now().subtract(Duration(days: i, hours: 1));
+    for (int i = 30; i >= 0; i--) {
+      var diff = DateTime.now().subtract(Duration(days: i, hours: 10));
       dateList.add(newFormat.format(diff));
     }
     return dateList;
@@ -51,9 +53,9 @@ class Data extends ChangeNotifier {
     List<GraphData> graphDataList = [];
     List<String> dates = getDates();
     try {
-      for (String date in dates) {
+      for (var date in dates) {
         GraphData graphData = GraphData(
-            dateTime: date,
+            dateTime: date[8]+date[9]+'/'+date[5]+date[6],
             value: datedDecodedData[stateAcronym]['dates'][date]['delta']
                 [type]);
         graphDataList.add(graphData);
