@@ -9,8 +9,6 @@ class DrawerScreen extends StatefulWidget {
 
 class _DrawerScreenState extends State<DrawerScreen> {
 
-//  bool notificatonState = true;
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -70,30 +68,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 onChanged: null,
               ),
             ),
-//            Card(
-//              color: primaryColor,
-//              child: SwitchListTile(
-//                contentPadding:
-//                const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-//                title: Text(
-//                  'Receive Notification',
-//                  style: TextStyle(
-//                      color: Colors.black,
-//                      fontSize: 20,
-//                      fontWeight: FontWeight.w900),
-//                  textAlign: TextAlign.left,
-//                ),
-//                activeColor: Colors.black,
-//                value: notificatonState,
-//                onChanged: (value){
-//                  setState(() {
-//                    notificatonState = value;
-//
-//                  });
-//                },
-//
-//              ),
-//            ),
             GestureDetector(
               child: Card(
                 color: primaryColor,
