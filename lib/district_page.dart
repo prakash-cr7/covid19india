@@ -28,7 +28,6 @@ class DistrictPage extends StatelessWidget {
           backgroundColor: backgroundConfirmedCasesColor,
           mainTextColor: confirmedCasescolor,
           sideTextColor: increaseInConfirmedCasescolor,
-          icon: Provider.of<Data>(context, listen: true).getDistrictData(totalOrDelta: 'delta', type: 'confirmed') == '' ? null : Icons.arrow_upward,
         ),
         DataTile(
           type: 'Active',
@@ -46,7 +45,6 @@ class DistrictPage extends StatelessWidget {
           backgroundColor: backgroundRecoverevColor,
           mainTextColor: recoveredColor,
           sideTextColor: increaseInRecoveryColor,
-          icon: Provider.of<Data>(context, listen: true).getDistrictData(totalOrDelta: 'delta', type: 'recovered') == '' ? null : Icons.arrow_upward,
         ),
         DataTile(
           type: 'Deceased',
@@ -55,7 +53,6 @@ class DistrictPage extends StatelessWidget {
           backgroundColor: Colors.grey[300],
           mainTextColor: deseasedColor,
           sideTextColor: increaseInDeseasedColor,
-          icon: Provider.of<Data>(context, listen: true).getDistrictData(totalOrDelta: 'delta', type: 'deceased') == '' ? null : Icons.arrow_upward,
         ),
         DataTile(
           type: 'Tested',
@@ -64,7 +61,6 @@ class DistrictPage extends StatelessWidget {
           backgroundColor: backgroundTestedColor,
           mainTextColor: testedColor,
           sideTextColor: increaseInTestedColor,
-          icon: Provider.of<Data>(context, listen: true).getDistrictData(totalOrDelta: 'delta', type: 'tested') == '' ? null : Icons.arrow_upward,
         )  ,
         Padding(
          padding: const EdgeInsets.all(8.0),

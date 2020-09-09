@@ -81,8 +81,7 @@ class _MainScreenState extends State<MainScreen> {
           centerTitle: true,
         ),
         drawer: DrawerScreen(),
-        body: Provider.of<Data>(context, listen: true).prog ? Center(child: CircularProgressIndicator()) :
-        PageView(
+        body: PageView(
           children: <Widget>[CountryPage(), StatePage(), DistrictPage()],
           controller: pageController,
           onPageChanged: (index) {
